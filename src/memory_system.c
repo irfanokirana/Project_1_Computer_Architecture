@@ -133,13 +133,17 @@ struct cache_line *cache_system_find_cache_line(struct cache_system *cache_syste
 
     // loop thorugh all cache lines in that set
     // number of lines in that set corresponds to the associativity of the cache
+    
+
     for (int i = 0; i < cache_system->associativity; i++) {
         // start at set start index and add offset, get address
         struct cache_line *cl = &cache_system->cache_lines[set_start_idx + i];
 
+        //printf("Checking set %d, index %d, stored tag 0x%x, searching for tag 0x%x\n", set_idx, i, cl->tag, tag);
+
         // check if any cache lines match the provided tag and the valid bit is set to 1
         // if match found return pointer to cache line
-        if (cl->tag == tag && cl->status != INVALID) {
+        if (cl->tag == tag) {
             return cl;
         }
     }
